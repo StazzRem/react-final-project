@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Weather.css";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWind } from "@fortawesome/free-solid-svg-icons";
@@ -9,12 +10,34 @@ import { faDroplet } from "@fortawesome/free-solid-svg-icons";
 export default function Weather() {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeather] = useState({});
+
+  function createDescription(response) {
+    let warmth = "";
+    if (response.data.main.temp <= 0) {
+      warmth = "freezing";
+    } else if (response.data.main.temp > 0 && response.data.main.temp <= 10) {
+      warmth = "cold";
+    } else if (response.data.main.temp > 10 && response.data.main.temp <= 15) {
+      warmth = "cool";
+    } else if (response.data.main.temp > 15 && response.data.main.temp <= 25) {
+      warmth = "warm";
+    } else {
+      warmth = "hot";
+    }
+
+    let clouds = response.data.weather[0].description;
+
+    return `Today's weather is ${warmth} with ${clouds}`;
+  }
+
   function useData(response) {
     setWeather({
       temperature: response.data.main.temp,
+      date: new Date(response.data.dt * 1000),
       wind: response.data.wind.speed,
       humidity: response.data.main.humidity,
       city: response.data.name,
+      description: createDescription(response),
     });
     setReady(true);
   }
@@ -95,7 +118,9 @@ export default function Weather() {
             {/* v CURRENT WEATHER SECTION v */}
             <div id="main-weather-display">
               <h1>{weatherData.city}</h1>
-              <h2>Friday, 11th November</h2>
+              <h2>
+                <FormattedDate date={weatherData.date} />
+              </h2>
 
               <div className="row justify-content-between" id="todays-weather">
                 <div className="col-3">
@@ -138,7 +163,7 @@ export default function Weather() {
                     </li>
                   </ul>
                 </div>
-                <span id="weather-desc"></span>
+                <span id="weather-desc">{weatherData.description}</span>
               </div>
             </div>
           </div>
