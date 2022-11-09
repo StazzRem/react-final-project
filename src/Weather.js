@@ -4,9 +4,10 @@ import axios from "axios";
 
 import WeatherInfo from "./WeatherInfo";
 
-export default function Weather() {
+export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weatherData, setWeather] = useState({});
+  const [city, setCity] = useState(props.defaultCity);
 
   function createDescription(response) {
     let warmth = "";
@@ -39,6 +40,20 @@ export default function Weather() {
     setReady(true);
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+  function changeCity(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "fc951b70b430c59535c6efec00d491ee";
+    let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(APIurl).then(useData);
+  }
+
   if (ready) {
     return (
       <div className="Weather">
@@ -48,12 +63,17 @@ export default function Weather() {
             {/* v NAVBAR v */}
             <nav className="navbar navbar-light bg-transparent">
               <div className="container-fluid">
-                <form id="search-bar" autocomplete="off">
+                <form
+                  onSubmit={handleSubmit}
+                  id="search-bar"
+                  autoComplete="off"
+                >
                   <input type="button" value="&#9906;" id="local-button" />{" "}
                   <input
                     type="search"
                     placeholder="Enter city name"
                     id="city-search"
+                    onChange={changeCity}
                   />{" "}
                   <input type="submit" value="Search" id="search-button" />
                 </form>
@@ -143,11 +163,7 @@ export default function Weather() {
       </div>
     );
   } else {
-    const apiKey = "fc951b70b430c59535c6efec00d491ee";
-    let defaultCity = "Amsterdam";
-    let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&appid=${apiKey}&units=metric`;
-    axios.get(APIurl).then(useData);
-
+    search();
     return "Loading...";
   }
 }
