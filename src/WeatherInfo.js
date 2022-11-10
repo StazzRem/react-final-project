@@ -1,6 +1,7 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
 import WeatherIcon from "./WeatherIcon";
+import CurrentTemperature from "./CurrentTemperature";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWind } from "@fortawesome/free-solid-svg-icons";
@@ -21,28 +22,10 @@ export default function WeatherInfo(props) {
           </div>
 
           <div className="col-4">
-            <ul>
-              <li id="current-temp">
-                <span className="temp-number">
-                  {Math.round(props.data.temperature)}
-                </span>
-                <span className="temp-unit">°C</span>
+            <ul className="temp-now">
+              <li>
+                <CurrentTemperature data={props.data.temperature} />
               </li>
-              <div className="form-check form-switch" id="temp-switch">
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="flexSwitchCheckDefault"
-                />
-                <label
-                  className="form-check-label"
-                  for="flexSwitchCheckDefault"
-                >
-                  °F
-                </label>
-              </div>
-
               <li>
                 <FontAwesomeIcon icon={faWind} /> Wind:{" "}
                 <span id="wind-speed">{Math.round(props.data.wind)}</span>
