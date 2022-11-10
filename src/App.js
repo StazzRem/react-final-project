@@ -23,14 +23,6 @@ export default function App() {
           GitHub Open Source
         </a>{" "}
         |{" "}
-        <a
-          href="https://www.graphberry.com/category/icons"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Icons by Graphberry
-        </a>{" "}
-        |{" "}
         <a href="https://www.netlify.com/" target="_blank" rel="noreferrer">
           Hosted by Netlify
         </a>

@@ -1,5 +1,6 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
+import WeatherIcon from "./WeatherIcon";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWind } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +17,7 @@ export default function WeatherInfo(props) {
 
         <div className="row justify-content-between" id="todays-weather">
           <div className="col-3">
-            <span id="weather-icon" alt="weather icon"></span>
+            <WeatherIcon data={props.data.icon} />
           </div>
 
           <div className="col-4">

@@ -35,8 +35,10 @@ export default function Weather(props) {
       wind: response.data.wind.speed,
       humidity: response.data.main.humidity,
       city: response.data.name,
+      icon: response.data.weather[0].icon,
       description: createDescription(response),
     });
+
     setReady(true);
   }
 
@@ -136,7 +138,7 @@ export default function Weather(props) {
             <WeatherInfo data={weatherData} />
             {/* ^ CURRENT WEATHER SECTION ^ */}
 
-            {/* v FORECAST SECTION v */}
+            {/* v FORECAST SECTION v 
             <div id="next-five-days">
               <div className="row justify-content-center">
                 <div className="col-2">
@@ -155,8 +157,8 @@ export default function Weather(props) {
                   </p>
                 </div>
               </div>
-              {/* ^ FORECAST SECTION ^ */}
             </div>
+             ^ FORECAST SECTION ^ */}
           </div>
           {/* ^ CONTAINER AND BACKGROUND ^ */}
         </div>
