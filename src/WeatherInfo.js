@@ -24,7 +24,7 @@ export default function WeatherInfo(props) {
           <div className="col-4">
             <ul className="temp-now">
               <li>
-                <CurrentTemperature data={props.data.temperature} />
+                <CurrentTemperature celsius={props.data.temperature} />
               </li>
               <li>
                 <FontAwesomeIcon icon={faWind} /> Wind:{" "}
