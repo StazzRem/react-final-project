@@ -45,7 +45,9 @@ export default function Weather(props) {
   function handleSubmit(event) {
     event.preventDefault();
     search();
+    document.getElementById("city-search").value = "";
   }
+
   function changeCity(event) {
     setCity(event.target.value);
   }
