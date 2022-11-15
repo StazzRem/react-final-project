@@ -4,6 +4,7 @@
   border-radius: 10px;
   padding: 20px;
   width: 800px;
+  background-image: url(./sun-clouds.png);
 }
 
 form {
