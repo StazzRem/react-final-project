@@ -3,6 +3,7 @@ import "./Weather.css";
 import axios from "axios";
 
 import WeatherInfo from "./WeatherInfo";
+import Forecast from "./Forecast";
 
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
@@ -31,6 +32,7 @@ export default function Weather(props) {
   function useData(response) {
     setWeather({
       temperature: response.data.main.temp,
+      coord: response.data.coord,
       date: new Date(response.data.dt * 1000),
       wind: response.data.wind.speed,
       humidity: response.data.main.humidity,
@@ -140,27 +142,11 @@ export default function Weather(props) {
             <WeatherInfo data={weatherData} />
             {/* ^ CURRENT WEATHER SECTION ^ */}
 
-            {/* v FORECAST SECTION v 
-            <div id="next-five-days">
-              <div className="row justify-content-center">
-                <div className="col-2">
-                  <h5 className="forecast-day">Wed</h5>
-                  <img
-                    src="images/cloud.png"
-                    alt="weather-icon"
-                    id="forecast-w-icon"
-                  />
-                  <p className="minmax-text">
-                    <strong>Low / High</strong> <br />
-                    <span id="forecast-min">12</span>
-                    <span id="forecast-degrees">°C</span> /
-                    <span id="forecast-max">16</span>
-                    <span id="forecast-degrees">°C</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-             ^ FORECAST SECTION ^ */}
+            {
+              /* v FORECAST SECTION v */
+              <Forecast coord={weatherData.coord} />
+              /* ^ FORECAST SECTION ^ */
+            }
           </div>
           {/* ^ CONTAINER AND BACKGROUND ^ */}
         </div>

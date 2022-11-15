@@ -18,7 +18,7 @@ export default function WeatherInfo(props) {
 
         <div className="row justify-content-between" id="todays-weather">
           <div className="col-3">
-            <WeatherIcon data={props.data.icon} />
+            <WeatherIcon data={props.data.icon} size={200} />
           </div>
 
           <div className="col-4">
