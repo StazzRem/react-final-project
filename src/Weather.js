@@ -54,6 +54,24 @@ export default function Weather(props) {
     setCity(event.target.value);
   }
 
+  function getPosition() {
+    navigator.geolocation.getCurrentPosition(usePosition);
+  }
+  function usePosition(position) {
+    const apiKey = "fc951b70b430c59535c6efec00d491ee";
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(useData);
+  }
+
+  function clickedCity(event, cityName) {
+    event.preventDefault();
+    const apiKey = "fc951b70b430c59535c6efec00d491ee";
+    let cityApi = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+    axios.get(cityApi).then(useData);
+  }
+
   function search() {
     const apiKey = "fc951b70b430c59535c6efec00d491ee";
     let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -74,7 +92,12 @@ export default function Weather(props) {
                   id="search-bar"
                   autoComplete="off"
                 >
-                  <input type="button" value="&#9906;" id="local-button" />{" "}
+                  <input
+                    type="button"
+                    value="&#9906;"
+                    id="local-button"
+                    onClick={getPosition}
+                  />{" "}
                   <input
                     type="search"
                     placeholder="Enter city name"
@@ -90,6 +113,9 @@ export default function Weather(props) {
                       href="/"
                       id="ams-link"
                       rel="noreferrer"
+                      onClick={(event) => {
+                        clickedCity(event, "Amsterdam");
+                      }}
                     >
                       Amsterdam
                     </a>
@@ -100,6 +126,9 @@ export default function Weather(props) {
                       href="/"
                       id="ldn-link"
                       rel="noreferrer"
+                      onClick={(event) => {
+                        clickedCity(event, "London");
+                      }}
                     >
                       London
                     </a>
@@ -110,6 +139,9 @@ export default function Weather(props) {
                       href="/"
                       id="tky-link"
                       rel="noreferrer"
+                      onClick={(event) => {
+                        clickedCity(event, "Tokyo");
+                      }}
                     >
                       Tokyo
                     </a>
@@ -120,6 +152,9 @@ export default function Weather(props) {
                       href="/"
                       id="syd-link"
                       rel="noreferrer"
+                      onClick={(event) => {
+                        clickedCity(event, "Sydney");
+                      }}
                     >
                       Sydney
                     </a>
@@ -130,6 +165,9 @@ export default function Weather(props) {
                       href="/"
                       id="nyk-link"
                       rel="noreferrer"
+                      onClick={(event) => {
+                        clickedCity(event, "New York");
+                      }}
                     >
                       New York
                     </a>
